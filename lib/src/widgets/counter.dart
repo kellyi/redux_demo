@@ -4,8 +4,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import '../redux/redux_store.dart';
 
 class Counter extends StatelessWidget {
-  final Store<int> store = ReduxStore.store;
-
   Widget build(BuildContext context) {
     return StoreConnector<int, String>(
       converter: (store) => store.state.toString(),

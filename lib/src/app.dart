@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_redux_navigation/flutter_redux_navigation.dart';
 import './redux/redux_store.dart';
-import './widgets/counter.dart';
-import './widgets/demo_buttons.dart';
+import './screens/counter_screen.dart';
+import './screens/map_screen.dart';
+
+class AppRoutes {
+  static const home = "/";
+  static const flutter_map = "/flutter_map";
+}
 
 class App extends StatelessWidget {
   final Store<int> store = ReduxStore.store;
@@ -17,22 +23,26 @@ class App extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData.dark(),
         title: title,
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text(title),
-          ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('You have pushed the button this many times:'),
-                Counter(),
-              ],
-            ),
-          ),
-          floatingActionButton: DemoButtons(),
-        ),
+        navigatorKey: NavigatorHolder.navigatorKey,
+        onGenerateRoute: routes,
       ),
     );
+  }
+
+  Route<dynamic> routes(RouteSettings settings) {
+    switch (settings.name) {
+      case AppRoutes.home:
+        return MaterialPageRoute(
+          builder: (context) {
+            return CounterScreen();
+          },
+        );
+      case AppRoutes.flutter_map:
+        return MaterialPageRoute(
+          builder: (context) {
+            return MapScreen();
+          },
+        );
+    }
   }
 }

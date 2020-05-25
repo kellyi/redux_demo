@@ -43,6 +43,7 @@ class DemoButtons extends StatelessWidget {
       onPressed: onPressed,
       tooltip: tooltip,
       child: Icon(icon),
+      heroTag: null,
     );
   }
 }
